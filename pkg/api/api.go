@@ -3,10 +3,13 @@ package api
 import (
 	"net/http"
 
+	"github.com/go-redis/redis"
 	"github.com/labstack/echo/v4"
 )
 
-type Service struct{}
+type Service struct {
+	Redis *redis.Client
+}
 
 func (s *Service) Init() *echo.Echo {
 	e := echo.New()

@@ -12,14 +12,23 @@ services:
       - redis
     environment:
       REDIS_URL: redis:6379
+      REDIS_PASSWORD: O1K7H60Z4UR9BHV
     networks:
       - backend
 
   redis:
     image: "redis:alpine3.19"
+    command: redis-server --requirepass O1K7H60Z4UR9BHV
     restart: unless-stopped
+    volumes:
+      - redis:/data
     networks:
       - backend
 
 networks:
   backend:
+
+
+volumes:
+  redis:
+    driver: local
