@@ -4,11 +4,14 @@ import (
 	"net/http"
 
 	"github.com/go-redis/redis"
+	"github.com/jmoiron/sqlx"
 	"github.com/labstack/echo/v4"
 )
 
 type Service struct {
-	Redis *redis.Client
+	Redis   *redis.Client
+	ReadDB  *sqlx.DB
+	WriteDB *sqlx.DB
 }
 
 func (s *Service) Init() *echo.Echo {

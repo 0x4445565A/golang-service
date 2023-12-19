@@ -10,18 +10,35 @@ services:
     restart: unless-stopped
     depends_on:
       - redis
+      - postgres
     environment:
       REDIS_URL: redis:6379
       REDIS_PASSWORD: O1K7H60Z4UR9BHV
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_PASSWORD: S0meP4SS
+      POSTGRES_USER: app_user
+      POSTGRES_DB: app_db
     networks:
       - backend
-
   redis:
     image: "redis:alpine3.19"
     command: redis-server --requirepass O1K7H60Z4UR9BHV
     restart: unless-stopped
     volumes:
       - redis:/data
+    networks:
+      - backend
+  postgres:
+    image: postgres:16-alpine3.19
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=S0meP4SS
+      - POSTGRES_USER=app_user
+      - POSTGRES_DB=app_db
     networks:
       - backend
 
@@ -31,4 +48,6 @@ networks:
 
 volumes:
   redis:
+    driver: local
+  postgres:
     driver: local
