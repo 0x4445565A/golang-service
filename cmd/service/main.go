@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/0x4445565a/golang-service/pkg/api"
+	"github.com/0x4445565a/golang-service/internal/service"
 	"github.com/go-redis/redis"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/gommon/log"
@@ -49,7 +49,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	service := api.Service{
+	service := service.Service{
 		Redis:   redisClient,
 		ReadDB:  db,
 		WriteDB: db,
